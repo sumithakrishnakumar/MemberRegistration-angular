@@ -1,0 +1,263 @@
+
+<mat-card class="card-container" fxflex="100"  routerLink="/first-component">Welcome!
+</mat-card>
+
+<div *ngIf="successmemeber" class="alert alert-success alert-dismissible fade show" role="alert" style="background-color:red">
+  <p>{{Registerstatustest}}</p> 
+  <button mat-raised-button type="submit" color="primary" routerLink="/login">Login</button>
+  <button mat-raised-button type="submit" color="primary" (click)="profile()">View Profile</button>
+</div>
+
+<form class="reg" [hidden]="ishide" >
+<div fxLayoutAlign="center center" fxFlexFill [hidden]="ishide">
+<mat-card fxFlex="40" style="margin-top:130px;">
+    <mat-toolbar color="primary">Register</mat-toolbar>
+    <form fxLayoutAlign="stretch" fxLayout="column" class="login-form" #myForm=ngForm>
+    <mat-form-field>
+        <input 
+        matInput placeholder="MemberName"
+        name="registermembername"
+        [(ngModel)]='registermembername'
+        required
+        (keypress)="keyPressAlphaspace($event)" 
+       >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input 
+        name="registermembercountry"
+        [(ngModel)]='registermembercountry'
+        required
+        matInput placeholder="Address">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+        name="registermemberpan"
+        [(ngModel)]='registermemberpan'
+        required
+        (keypress)="keyPressAlphanumeric($event)"
+         maxlength="12"
+        matInput placeholder="Pan">
+      </mat-form-field>
+      <mat-form-field>
+        <input 
+        name="registermembernumber"
+        [(ngModel)]="registermembernumber"
+        required
+        (keypress)="keyPressNumbers($event)"
+        matInput placeholder="Contact No"
+        [formControl]="contactnumber" >
+        <mat-error *ngIf="contactnumber.invalid">{{getErrorContact()}}</mat-error>
+        
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="date"
+        matInput placeholder="Choose your DOB"
+        [max]="finaldate" 
+        name="registermemberdob"
+        [(ngModel)]="registermemberdob"
+        (ngModelChange)="onCreateAgefunction($event)"
+        required
+
+        >
+        
+      </mat-form-field>
+
+      <mat-form-field>
+        <input 
+        matInput placeholder="Age"
+        value={{showAgevalue}} 
+        name="registermemberage"
+        [(ngModel)]="registermemberage"
+        required
+        [formControl]="ageform"
+        matTooltip="Age must be greater than 18"
+        >
+
+        
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Enter your email</mat-label>
+        <input  
+       matInput placeholder="pat@example.com" [formControl]="email" 
+       name="registermemberemail"
+       [(ngModel)]='registermemberemail' required >
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="password"
+        matInput placeholder="password"
+        name="registermemberpassword"
+        [(ngModel)]="registermemberpassword"
+        required
+        [formControl]="password" 
+        >
+        <mat-error *ngIf="password.invalid">{{getPassworderrormsg()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Country</mat-label>
+        <mat-select  placeholder="Country" required [formControl]="countryControl"   
+        [(ngModel)]="selectedCountry.id" (ngModelChange)="onSelect($event)"
+      >
+       
+          <mat-option></mat-option>
+
+          <mat-option *ngFor="let country of countries" value= {{country.id}}>{{country.name}}</mat-option>
+          
+        </mat-select>
+        <mat-error *ngIf="countryControl.hasError('required')">Please choose a country</mat-error>
+
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>State</mat-label>
+        <mat-select  required [formControl]="stateControl">
+          <mat-option ></mat-option>
+
+          <mat-option *ngFor="let state of states " value= {{state.id}}>{{state.name}}</mat-option>
+          
+        </mat-select>
+        <mat-error *ngIf="stateControl.hasError('required')">Please choose a state</mat-error>
+
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary" style="margin-right:5px;" (click)="addUser(myForm.value)" [disabled]="!myForm.valid  || !contactnumber.valid
+      || !email.valid || !password.valid || !countryControl.valid || !stateControl.valid"
+      >Register</button>
+    </form>
+</mat-card>
+</div>
+</form>
+
+
+
+<!-- //prfil -->
+<form class="prp" [hidden]="ishideprofile" >
+<div fxLayoutAlign="center center" fxFlexFill>
+<mat-card fxFlex="40" style="margin-top:130px;">
+    <mat-toolbar color="primary">profile</mat-toolbar>
+    <div *ngIf="profiledit" class="alert alert-success alert-dismissible fade show" role="alert" style="background-color:red">
+      <p>"Profile Edited Successfully"</p>      
+    </div>
+    <form fxLayoutAlign="stretch" fxLayout="column" class="login-form" #myForm=ngForm>
+    <mat-form-field>
+        <input 
+        matInput placeholder="MemberName"
+        name="registermembername"
+        [(ngModel)]='registermembername'
+        required
+        (keypress)="keyPressAlphaspace($event)" 
+        value={{registermembername}}
+        [readonly]="true"
+       >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input 
+        name="registermembercountry"
+        [(ngModel)]='registermembercountry'
+        required
+        matInput placeholder="Address"
+        value="registermembercountry"
+        [readonly]="true">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+        name="registermemberpan"
+        [(ngModel)]='registermemberpan'
+        required
+        (keypress)="keyPressAlphanumeric($event)"
+         maxlength="12"
+        matInput placeholder="Pan"
+        value="registermemberpan">
+      </mat-form-field>
+      <mat-form-field>
+        <input 
+        name="registermembernumber"
+        [(ngModel)]="registermembernumber"
+        required
+        (keypress)="keyPressNumbers($event)"
+        matInput placeholder="Contact No"
+        [formControl]="contactnumber" 
+        value="registermembernumber">
+        <mat-error *ngIf="contactnumber.invalid">{{getErrorContact()}}</mat-error>
+        
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="date"
+        matInput placeholder="Choose your DOB"
+        [max]="finaldate" 
+        name="registermemberdob"
+        [(ngModel)]="registermemberdob"
+        (ngModelChange)="onCreateAgefunction($event)"
+        required
+        value="registermemberdob"
+        [readonly]="true"
+        >
+        
+      </mat-form-field>
+
+      <mat-form-field>
+        <input 
+        matInput placeholder="Age"
+        value={{showAgevalue}} 
+        name="registermemberage"
+        [(ngModel)]="registermemberage"
+        required
+        [formControl]="ageform"
+        value="registermemberage"
+        matTooltip="Age must be greater than 18"
+        [readonly]="true"
+        >
+
+        
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Enter your email</mat-label>
+        <input  
+       matInput placeholder="pat@example.com" [formControl]="email" 
+       name="registermemberemail"
+       [(ngModel)]='registermemberemail' required 
+       value="registermemberemail"
+       >
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+     
+      <mat-form-field appearance="fill">
+        <mat-label>Country</mat-label>
+        <mat-select  placeholder="Country" required [formControl]="countryControl"   
+        [(ngModel)]="selectedCountry.id" (ngModelChange)="onSelect($event)"
+      >
+       
+          <mat-option></mat-option>
+
+          <mat-option *ngFor="let country of countries" value= {{country.id}}>{{country.name}}</mat-option>
+          
+        </mat-select>
+        <mat-error *ngIf="countryControl.hasError('required')">Please choose a country</mat-error>
+
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>State</mat-label>
+        <mat-select  required [formControl]="stateControl">
+          <mat-option ></mat-option>
+
+          <mat-option *ngFor="let state of states " value= {{state.id}}>{{state.name}}</mat-option>
+          
+        </mat-select>
+        <mat-error *ngIf="stateControl.hasError('required')">Please choose a state</mat-error>
+
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary" style="margin-right:5px;" (click)="editprofile()" [disabled]="!myForm.valid  || !contactnumber.valid
+      || !email.valid || !password.valid || !countryControl.valid || !stateControl.valid"
+      >Edit</button>
+    </form>
+</mat-card>
+</div>

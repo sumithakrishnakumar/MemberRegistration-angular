@@ -1,0 +1,169 @@
+
+<mat-card class="card-container" fxflex="100" style="background-color: green;" routerLink="/home"><strong>Home</strong>
+<strong style="margin-left: 1200px;">Profile</strong>
+</mat-card>
+    
+<div fxLayoutAlign="center center" fxFlexFill >
+    <mat-card fxFlex="40">
+    <mat-toolbar color="primary">Dependent 1</mat-toolbar>
+    <div *ngIf="dependent1success" class="alert alert-success alert-dismissible fade show" role="alert" style="background-color:red">
+      <p>Dependent1 added successfully</p>      
+    </div>
+    <div *ngIf="dependent1edit" class="alert alert-success alert-dismissible fade show" role="alert" style="background-color:red">
+        <p>Dependent1 Edited successfully</p>      
+      </div>
+    <form class="editdepend" >
+      <div class="alert alert-sucess alert-dismissible fade show" role="alert" style="margin-top:20px">
+        <div class="card" style="background-color:lemonchiffon; margin-top:40px">
+           
+             
+          <form #authForm="ngForm">
+            <mat-form-field>
+                    <label for="depedentname" style="color:black; font-style: normal;">DepedentName*:</label>
+             <br> 
+             <br>
+              <input type="text"
+              class="form-control"
+              id="registerdepedentname"
+              name="registerdepedentname"
+              [(ngModel)]="registerdepedentname"
+              required
+              (keypress)="keyPressAlphaspace($event)" 
+              >
+
+            </mat-form-field>
+
+              <hr>
+              <mat-form-field>
+
+                  <label for="depedentrelation" style="color:black; font-style: normal;">DepedentRelation *:</label>
+                  <br>
+                  <br>
+                  <input type="text"
+                  class="form-control"
+                  id="registerdepedentrelationship"
+                  name="registerdepedentrelationship"
+                  [(ngModel)]="registerdepedentrelationship"
+                  required
+                  >
+                </mat-form-field>
+                  <hr>
+
+                  <mat-form-field>
+  
+                    <label for="depedentcontact" style="color:black; font-style: normal;">Dependent Contact No *:</label>
+                    <br>
+                    <br>
+                    <input type="text"
+                    class="form-control"
+                    id="registerdepedent1contact"
+                    name="registerdepedent1contact"
+                    [(ngModel)]="registerdepedent1contact"
+                    required
+                    (keypress)="keyPressNumbers($event)"
+                    [formControl]="contactnumber" >
+      <mat-error *ngIf="contactnumber.invalid">{{getErrorContact()}}</mat-error>
+                    
+                  </mat-form-field>
+                  <br>
+                  <button class="btn btn-primary" style="background-color:red" [disabled]="!authForm.valid" (click)="adddependent1(authForm.value)" [hidden]="ishiddensubmit">Submit</button>
+                  <button class="btn btn-primary" style="background-color:red" [disabled]="!authForm.valid" [hidden]="ishiddenedit" (click)="editdependent1()">Edit</button>
+
+                  <!-- <button class="btn btn-primary" style="background-color:red" (click)="oncreateAdddepedentextra()">Add</button> -->
+                  <button class="btn btn-primary" style="background-color:red; margin-left: 40px;"(click)="adddependent2()" [hidden]="ishiddenadddependent">Add dependent2</button>
+                  <button class="btn btn-primary" style="background-color:red; margin-left: 40px;"(click)="editdependent2button()" [hidden]="ishiddenviewdependent">view dependent2</button>
+
+
+              </form>
+      </div>
+      </div>
+  </form>
+</mat-card>
+</div>
+
+
+<!-- table -->
+
+
+
+<!-- table -->
+  <form class="editdepen2" [hidden]="ishiddenform" >
+
+    <div fxLayoutAlign="center center" fxFlexFill >
+        <mat-card fxFlex="40">
+        <mat-toolbar color="primary">Dependent 2</mat-toolbar>
+    <form class="editdepend" >
+        <div class="alert alert-sucess alert-dismissible fade show" role="alert" style="margin-top:20px">
+          <div class="card" style="background-color:lemonchiffon; margin-top:40px">
+            <div *ngIf="dependent2success" class="alert alert-success alert-dismissible fade show" role="alert" style="background-color:red">
+                <p>Dependent2 added successfully</p>      
+              </div>
+            <div class="card">
+
+                <button class="btn btn-primary" style="background-color:red; margin-left:450px;" (click)="onclosedependent2()">Close</button>
+                </div>
+               
+            <form #authForm2="ngForm">
+              <mat-form-field>
+                      <label for="depedentname" style="color:black; font-style: normal;">DepedentName*:</label>
+               <br> 
+               <br>
+                <input type="text"
+                class="form-control"
+                id="registerdepedentname"
+                name="registerdepedentname"
+                [(ngModel)]="registerdepedentname"
+                required
+                (keypress)="keyPressAlphaspace($event)" 
+                >
+  
+              </mat-form-field>
+  
+                <hr>
+                <mat-form-field>
+  
+                    <label for="depedentrelation" style="color:black; font-style: normal;">DepedentRelation *:</label>
+                    <br>
+                    <br>
+                    <input type="text"
+                    class="form-control"
+                    id="registerdepedentrelationship"
+                    name="registerdepedentrelationship"
+                    [(ngModel)]="registerdepedentrelationship"
+                    required
+                    (keypress)="keyPressAlphaspace($event)" 
+                    >
+                  </mat-form-field>
+                    <hr>
+
+                    <mat-form-field>
+  
+                      <label for="depedentcontact" style="color:black; font-style: normal;">Dependent Contact No *:</label>
+                      <br>
+                      <br>
+                      <input type="text"
+                      class="form-control"
+                      id="registerdepedentcontact"
+                      name="registerdepedentcontact"
+                      [(ngModel)]="registerdepedentcontact"
+                      required
+                      (keypress)="keyPressNumbers($event)"
+                      [formControl]="contactnumber" >
+        <mat-error *ngIf="contactnumber.invalid">{{getErrorContact()}}</mat-error>
+                      
+                    </mat-form-field>
+
+                    <br>
+                    <button class="btn btn-primary" style="background-color:red" [disabled]="!authForm2.valid || !contactnumber.valid" (click)="dependent2successdata(authForm2.value)" [hidden]="disabledsubmit">Submit</button>
+                    <!-- <button class="btn btn-primary" style="background-color:red" (click)="oncreateAdddepedentextra()">Add</button> -->
+                    <button class="btn btn-primary" style="background-color:red" [hidden]="editdependent2">Edit</button>
+
+  
+                </form>
+        </div>
+        </div>
+    
+</form>
+</mat-card>
+</div>
+</form>

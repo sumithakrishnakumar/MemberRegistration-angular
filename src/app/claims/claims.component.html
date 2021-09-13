@@ -1,0 +1,289 @@
+
+<mat-card class="card-container" fxflex="100" style="background-color: green;" routerLink="/home"><strong>Home</strong>
+    <strong style="margin-left: 1200px;">Profile</strong>
+    </mat-card>
+        
+    <div fxLayoutAlign="center center" fxFlexFill >
+        <mat-card fxFlex="40"  style="margin-top: 230px;">
+        <mat-toolbar color="primary">Claims</mat-toolbar>
+        <div *ngIf="claimssuccess" class="alert alert-success alert-dismissible fade show" role="alert" style="background-color:red">
+          <p>{{claimIfinal}}</p>      
+        </div>
+        <div *ngIf="dependent1edit" class="alert alert-success alert-dismissible fade show" role="alert" style="background-color:red">
+            <p>Dependent1 Edited successfully</p>      
+          </div>
+        <form class="editdepend" >
+          <div class="alert alert-sucess alert-dismissible fade show" role="alert" style="margin-top:20px">
+            <div class="card" style="background-color:lemonchiffon; margin-top:40px">
+               
+                 
+              <form #authForm="ngForm">
+                <mat-form-field>
+                        <label for="depedentname" style="color:black; font-style: normal;">Name*:</label>
+                 <br> 
+                 <br>
+                  <input type="text"
+                  class="form-control"
+                  id="claimname"
+                  name="claimname"
+                  [(ngModel)]="claimname"
+                  required
+                  (keypress)="keyPressAlphaspace($event)" 
+                  >
+    
+                </mat-form-field>
+    
+                  <hr>
+                  <mat-form-field>
+    
+                      <label for="depedentrelation" style="color:black; font-style: normal;">DOB *:</label>
+                      <br>
+                      <br>
+                      <input type="date"
+                      matInput placeholder="Choose your DOB"
+                      [max]="finaldate"
+                      class="form-control"
+                      id="claimdob"
+                      name="claimdob"
+                      [(ngModel)]="claimdob"
+                      required
+                      >
+                      
+        
+                    </mat-form-field>
+                      <hr>
+
+                      <mat-form-field>
+                        <label for="depedentrelation" style="color:black; font-style: normal;">Dat of Admission *:</label>
+
+                        <input type="date"
+                        matInput placeholder="Choose your DOA"
+                        [max]="finaldate" 
+                        name="claimadmission"
+                        [(ngModel)]="claimadmission"
+                         required
+
+                     >
+                        
+          
+                      </mat-form-field>
+                      <hr>
+
+                      <mat-form-field>
+    
+                        <label for="depedentrelation" style="color:black; font-style: normal;">Date of Discharge *:</label>
+                        <br>
+                        <br>
+                        <input type="date"
+                        matInput placeholder="Choose your DOD"
+                        [max]="finaldate"
+                        class="form-control"
+                        id="claimdischarge"
+                        name="claimdischarge"
+                        [(ngModel)]="claimdischarge"
+                        required
+                        >
+                        
+          
+                      </mat-form-field>
+                      <hr>
+
+                      <mat-form-field>
+    
+                        <label for="depedentrelation" style="color:black; font-style: normal;">ProviderName *:</label>
+                        <br>
+                        <br>
+                        <input type="text"
+                        [max]="finaldate"
+                        class="form-control"
+                        id="providerName"
+                        name="providerName"
+                        [(ngModel)]="providerName"
+                        required
+                        >
+                        
+          
+                      </mat-form-field>
+                      <hr>
+                      <mat-form-field>
+    
+                        <label for="depedentrelation" style="color:black; font-style: normal;">Total Bill Amount *:</label>
+                        <br>
+                        <br>
+                        <input type="text"
+                        class="form-control"
+                        id="billamount"
+                        name="billamount"
+                        [(ngModel)]="billamount"
+                        required
+                        (keypress)="keyPressNumbers($event)"
+                        >
+                        
+          
+                      </mat-form-field>
+
+
+                      <br>
+                      <button class="btn btn-primary" style="background-color:red" [disabled]="!authForm.valid" (click)="addclaims(authForm.value)">Submit Claims</button>
+    
+                      <p>or</p>
+
+                      <button class="btn btn-primary" style="background-color:red" (click)="adddependentclaims()">Add dependent claims</button>
+    
+    
+                  </form>
+          </div>
+          </div>
+      </form>
+    </mat-card>
+    </div>
+    
+    
+    <!-- table -->
+    
+    
+    
+    <!-- table -->
+      <form class="editdepen2" [hidden]="ishiddenform" >
+    
+        <div fxLayoutAlign="center center" fxFlexFill >
+          <mat-card fxFlex="40"  style="margin-top: 230px;">
+          <mat-toolbar color="primary">Dependent Claims</mat-toolbar>
+          <div *ngIf="dependent1claimsuccess" class="alert alert-success alert-dismissible fade show" role="alert" style="background-color:red">
+            <p>{{claimIfinaldependent}}</p>      
+          </div>
+          <div *ngIf="dependent1edit" class="alert alert-success alert-dismissible fade show" role="alert" style="background-color:red">
+              <p>Dependent1 Edited successfully</p>      
+            </div>
+          <form class="editdepend" >
+            <div class="alert alert-sucess alert-dismissible fade show" role="alert" style="margin-top:20px">
+              <div class="card" style="background-color:lemonchiffon; margin-top:40px">
+                 
+                   
+                <form #authForm2="ngForm">
+                  <mat-form-field>
+                          <label for="depedentname" style="color:black; font-style: normal;">Name*:</label>
+                   <br> 
+                   <br>
+                    <input type="text"
+                    class="form-control"
+                    id="dependentclaimname"
+                    name="dependentclaimname"
+                    [(ngModel)]="dependentclaimname"
+                    required
+                    (keypress)="keyPressAlphaspace($event)" 
+                    >
+      
+                  </mat-form-field>
+      
+                    <hr>
+                    <mat-form-field>
+      
+                        <label for="depedentrelation" style="color:black; font-style: normal;">DOB *:</label>
+                        <br>
+                        <br>
+                        <input type="date"
+                        matInput placeholder="Choose your DOB"
+
+                        [max]="finaldate"
+                        class="form-control"
+                        id="dependentclaimdob"
+                        name="dependentclaimdob"
+                        [(ngModel)]="dependentclaimdob"
+                        required
+                        >
+                        
+          
+                      </mat-form-field>
+                        <hr>
+  
+                        <mat-form-field>
+      
+                          <label for="depedentrelation" style="color:black; font-style: normal;">Date of Admission *:</label>
+                          <br>
+                          <br>
+                          <input type="date"
+                          matInput placeholder="Choose your DOA"
+
+                          [max]="finaldate"
+                          class="form-control"
+                          id="dependentclaimadmission"
+                          name="dependentclaimadmission"
+                          [(ngModel)]="dependentclaimadmission"
+                          required
+                          >
+                          
+            
+                        </mat-form-field>
+                        <hr>
+  
+                        <mat-form-field>
+      
+                          <label for="depedentrelation" style="color:black; font-style: normal;">Date of Discharge *:</label>
+                          <br>
+                          <br>
+                          <input type="date"
+                          matInput placeholder="Choose your DOD"
+
+                          [max]="finaldate"
+                          class="form-control"
+                          id="dependentclaimdischarge"
+                          name="dependentclaimdischarge"
+                          [(ngModel)]="dependentclaimdischarge"
+                          required
+                          >
+                          
+            
+                        </mat-form-field>
+                        <hr>
+  
+                        <mat-form-field>
+      
+                          <label for="depedentrelation" style="color:black; font-style: normal;">ProviderName *:</label>
+                          <br>
+                          <br>
+                          <input type="text"
+                          [max]="finaldate"
+                          class="form-control"
+                          id="dependentproviderName"
+                          name="dependentproviderName"
+                          [(ngModel)]="dependentproviderName"
+                          required
+                          >
+                          
+            
+                        </mat-form-field>
+                        <hr>
+                        <mat-form-field>
+      
+                          <label for="depedentrelation" style="color:black; font-style: normal;">Total Bill Amount *:</label>
+                          <br>
+                          <br>
+                          <input type="text"
+                          class="form-control"
+                          id="dependentbillamount"
+                          name="dependentbillamount"
+                          [(ngModel)]="dependentbillamount"
+                          required
+                          (keypress)="keyPressNumbers($event)"
+                           >
+           
+                          
+            
+                        </mat-form-field>
+  
+  
+                        <br>
+                        <button class="btn btn-primary" style="background-color:red" [disabled]="!authForm2.valid" (click)="addclaimsdependent(authForm2.value)" >Submit Claims</button>
+      
+      
+                    </form>
+            </div>
+            </div>
+        </form>
+      </mat-card>
+      </div>
+
+
+    </form>
+    

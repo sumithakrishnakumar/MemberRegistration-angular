@@ -1,0 +1,29 @@
+
+<mat-card class="card-container" fxflex="100"  routerLink="/first-component">Welcome!
+</mat-card>
+
+<div fxLayoutAlign="center center" fxFlexFill>
+<mat-card fxFlex="25">
+    <mat-toolbar color="primary">Login Page</mat-toolbar>
+    <form fxLayoutAlign="stretch" fxLayout="column" class="login-form" #myFormdata=ngForm>
+    <mat-form-field>
+        <input matInput placeholder="username"
+        name="username"
+        [(ngModel)]='username'
+        required>
+      </mat-form-field>
+     
+      
+      <mat-form-field>
+        <input matInput type="password" placeholder="password"
+        name="password"
+        [(ngModel)]='password'
+        required>
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="primary" style="margin-right:5px;" [disabled]="!myFormdata.valid"  routerLink="/home">Login</button>
+      <p style="text-align: center; font-style: normal; margin-top: 10px;">OR</p>
+      <button mat-raised-button color="primary" style="margin-right:5px;" routerLink="/registration">register</button>
+    </form>
+</mat-card>
+</div>
+
